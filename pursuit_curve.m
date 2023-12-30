@@ -2,6 +2,7 @@ close all;
 clear;
 clc;
 
+%Credit To frbhusen (Hussein Rajab)
 GUI = {'Projectile Speed[m/s]: ' , 'Simulation Time[s]: ','Start Point[x]: ','Start Point[y]: ', 'Time Step: ' };
 Title = 'Pursuit Curve';
 lines = [1 50];
@@ -135,8 +136,6 @@ else
             'Units', 'normalized');
 end
 
-
-
 figure('Units','normalized','Position',[0 0 1 1])
 
 subplot(1,2,1);
@@ -153,3 +152,4 @@ title('Target movment')
 xlabel('X-AXIS','Editing','off');
 ylabel('Y-AXIS','Editing','off');
 grid on;
+%Credit To frbhusen (Hussein Rajab)
