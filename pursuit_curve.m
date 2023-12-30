@@ -14,12 +14,10 @@ X_IN = str2double(inputs_m{3});
 Y_IN = str2double(inputs_m{4});
 
 
-question = questdlg('Please Select The Movement Type : ', 'Pursuit Curve','Straight Line','Next Page','Straight Line');
+question = questdlg('Please Select The Movement Type : ', 'Pursuit Curve','Straight Line','Circular Motion','Custom Function','Straight Line');
 switch question
     case 'Straight Line'
-        GUI={'Target Speed[m/s]: ','Start Point[x]: ', 'Start Point[y]: ' ,'Slope: '};
-            Title='Persuit Curve';
-            lines=[1 50];
+            GUI={'Target Speed[m/s]: ','Start Point[x]: ', 'Start Point[y]: ' ,'Slope: '};
             anss={'300','3000','1800','0'};
             inputs = inputdlg(GUI,Title,lines,anss);
             v = str2double(inputs{1});
@@ -27,33 +25,20 @@ switch question
             Y = str2double(inputs{3});
             slope = -str2double(inputs{4});
             T = @(t) (-v)*[cos(atan(slope))*t+X/(-v);sin(atan(slope))*t+Y/(-v)];
-    
-    case 'Next Page'
-        question2 = questdlg('Please Select The Movement Type : ','Pursuit Curve','Circular Motion','Custom Function','Circular Motion');
-        switch question2
-            case 'Custom Function'
-                %T = @(t)[-5*t + 40;20*(sin(0.5*pi*t).*sin(pi*t))]  w =20
-                GUI={'Function: '};
-                Title='Persuit Curve';
-                lines=[1 50];
-                anss={'[3500-300*t ; 1000 + 150*sin(2*t)]'};
-                inputs = inputdlg(GUI,Title,lines,anss);
-                T = str2func("@(t)"+anss{1});
-                %T = @(t)[t*v*(cos(v*pi*t).*sin(pi*t)) + X;t*v*(sin(v*pi*t).*cos(pi*t))+Y];
-                
-            case 'Circular Motion'
-                GUI={'Target Speed[m/s]: ','Rotation Center[x]: ', 'Rotation Center[y]: ' ,'Circle Radius: '};
-                Title='Persuit Curve';
-                lines=[1 50];
-                anss={'200','2000','1000','500'};
-                inputs = inputdlg(GUI,Title,lines,anss);
-                v = str2double(inputs{1});
-                X = str2double(inputs{2});
-                Y = str2double(inputs{3});
-                r = str2double(inputs{4});
-                T = @(t) r*[cos(v/r*t)+X/r;sin(v/r*t)+Y/r];
-            
-        end
+    case 'Circular Motion'
+            GUI={'Target Speed[m/s]: ','Rotation Center[x]: ', 'Rotation Center[y]: ' ,'Circle Radius: '};
+            anss={'200','2000','1000','500'};
+            inputs = inputdlg(GUI,Title,lines,anss);
+            v = str2double(inputs{1});
+            X = str2double(inputs{2});
+            Y = str2double(inputs{3});
+            r = str2double(inputs{4});
+            T = @(t) r*[cos(v/r*t)+X/r;sin(v/r*t)+Y/r];
+    case 'Custom Function'        
+            GUI={'Function: '};
+            anss={'[3500-300*t ; 1000 + 150*sin(2*t)]'};
+            inputs = inputdlg(GUI,Title,lines,anss);
+            T = str2func("@(t)"+anss{1});
 end
 
 
