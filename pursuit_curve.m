@@ -1,7 +1,7 @@
 close all;
 clear;
 clc;
-%diff(f(x))
+
 GUI = {'Projectile Speed[m/s]: ' , 'Simulation Time[s]: ','Start Point[x]: ','Start Point[y]: ', 'Time Step: ' };
 Title = 'Pursuit Curve';
 lines = [1 50];
@@ -56,9 +56,9 @@ switch question
         end
 end
 
-% Solving The Equation For the Movment
+
 dpdt = @(t,p) (w*((T(t) - p)/(norm(T(t)-p))));
-% change x,y in [0;0]
+
 [ t , p ] = ode4( dpdt , [0 xf] , [X_IN;Y_IN] , h );
 G = T(t(1));
 
@@ -88,7 +88,7 @@ image([0 X_max],[Y_max 0],base)
 axis([0 X_max 0 Y_max])
 axis image
 axis manual
-% axis ≃ [3770;l930]
+
 
 z = plot(p(1,1),p(2,1),'bo',G(1,1),G(2,1),'ro',p(1),p(2),'bs');
 set(z(1),'MarkerSize',4,'MarkerFaceColor','k','MarkerEdgeColor','b');
@@ -99,8 +99,7 @@ ylabel('Y-AXIS','Editing','off');
 legend('Projectile','Target','Launch Site');
 grid on;
 hold off
-%curve = animatedline(G(1),G(2),"Color",'r');
-%curve2 = animatedline(p(1,1),p(2,1),"Color","white");
+
 
 impact = 0;
 X = 0;
@@ -111,8 +110,7 @@ for i=1:length(t)
     G = T(t(i));
     set(z(1),'XData',p(1,i),'YData',p(2,i));
     set(z(2),'XData',G(1),'YData',G(2));
-    %addpoints(curve,G(1),G(2));
-    %addpoints(curve2,p(1,i),p(2,i));
+
     drawnow;
     if (norm(p(:,i)-G) <= 20)
         impact = 1;
