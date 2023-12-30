@@ -1,0 +1,4 @@
+- This project is about Pursuit Curve exactly Single pursuer 
+- Using pure Matlab
+- Used Runge kutta 4th order method to solve the differential equation
+- Credit to frbhusen (Hussein Rajab)
